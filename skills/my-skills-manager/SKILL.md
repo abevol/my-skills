@@ -81,7 +81,7 @@ npx openskills install <author>/<repo_name> --global --universal -y
 成功后同步到 AGENTS.md：
 
 ```bash
-npx openskills sync -o C:\Users\jayvi\.agent\AGENTS.md
+npx openskills sync -o C:\Users\jayvi\.agent\AGENTS.md -y
 ```
 
 ### 4. 安装本地技能
@@ -97,7 +97,7 @@ npx openskills install ~/.agent/my-skills/skills/<skill-name> --global --univers
 成功后同步到 AGENTS.md：
 
 ```bash
-npx openskills sync -o C:\Users\jayvi\.agent\AGENTS.md
+npx openskills sync -o C:\Users\jayvi\.agent\AGENTS.md -y
 ```
 
 ### 5. 卸载技能
@@ -113,7 +113,7 @@ npx openskills remove <skill-name>
 成功后同步到 AGENTS.md：
 
 ```bash
-npx openskills sync -o C:\Users\jayvi\.agent\AGENTS.md
+npx openskills sync -o C:\Users\jayvi\.agent\AGENTS.md -y
 ```
 
 ## 目录结构参考
@@ -132,6 +132,31 @@ my-skills/
     │   └── references/
     └── my-skills-manager/        # 本技能
         └── SKILL.md
+```
+
+## 失败处理规则
+
+**关键原则：失败即停止，不尝试替代方案**
+
+当任何工作流步骤执行失败时：
+
+1. **立即停止执行**：不继续执行后续步骤
+2. **不尝试其他方法**：不寻找替代方案或变通方法
+3. **直接报告失败**：向用户清晰报告：
+   - 执行了哪个步骤
+   - 失败的具体原因
+   - 完整的错误信息
+4. **等待用户指示**：等待用户决定如何处理
+
+**示例失败报告：**
+
+```
+执行失败：无法推送到远程仓库
+
+步骤：git push origin main
+错误：fatal: unable to access 'https://github.com/...': Could not resolve host
+
+请检查网络连接或仓库权限后重试。
 ```
 
 ## 注意事项
