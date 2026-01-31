@@ -131,8 +131,7 @@ my-skills/
     │   ├── scripts/
     │   └── references/
     └── my-skills-manager/        # 本技能
-        ├── SKILL.md
-        └── scripts/
+        └── SKILL.md
 ```
 
 ## 注意事项
