@@ -1,0 +1,23 @@
+{
+  "name": "abevol-my-skills",
+  "owner": {
+    "name": "Abevol",
+    "email": "abevol@github.com"
+  },
+  "metadata": {
+    "description": "Abevol's AI Agent skills",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "my-skills",
+      "description": "Collection of AI Agent skills for personal use.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/gh-cli",
+        "./skills/my-skills-manager"
+      ]
+    }
+  ]
+}
