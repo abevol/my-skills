@@ -1,2 +1,0 @@
-# Usersjayvi.agentAGENTS
-

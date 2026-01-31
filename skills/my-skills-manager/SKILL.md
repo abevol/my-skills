@@ -81,7 +81,7 @@ npx openskills install <author>/<repo_name> --global --universal -y
 成功后同步到 AGENTS.md：
 
 ```bash
-npx openskills sync -o C:\Users\jayvi\.agent\AGENTS.md -y
+npx openskills sync -o C:/Users/jayvi/.agent/AGENTS.md -y
 ```
 
 ### 4. 安装本地技能
@@ -97,7 +97,7 @@ npx openskills install ~/.agent/my-skills/skills/<skill-name> --global --univers
 成功后同步到 AGENTS.md：
 
 ```bash
-npx openskills sync -o C:\Users\jayvi\.agent\AGENTS.md -y
+npx openskills sync -o C:/Users/jayvi/.agent/AGENTS.md -y
 ```
 
 ### 5. 卸载技能
@@ -113,7 +113,7 @@ npx openskills remove <skill-name>
 成功后同步到 AGENTS.md：
 
 ```bash
-npx openskills sync -o C:\Users\jayvi\.agent\AGENTS.md -y
+npx openskills sync -o C:/Users/jayvi/.agent/AGENTS.md -y
 ```
 
 ## 目录结构参考
