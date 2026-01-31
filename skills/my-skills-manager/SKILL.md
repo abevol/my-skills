@@ -1,213 +1,143 @@
 ---
 name: my-skills-manager
-description: 我的技能管理。用于管理本地 AI Agent 技能，包括添加、更新、安装和卸载技能。当用户需要管理个人技能库中的技能时使用此技能。
+description: 管理本地技能仓库"我的技能"的自动化工作流。当用户要求将技能放入/添加/创建/生成/提交到"我的技能"、更新/修改"我的技能"中的技能、安装 Github/本地技能或卸载技能时触发使用。
+license: MIT
 ---
 
 # 我的技能管理
 
-此技能用于管理本地 AI Agent 技能库，支持添加新技能、更新现有技能、从 GitHub 安装技能以及卸载技能。
+本技能提供管理本地技能仓库"我的技能"的完整工作流。
 
 ## 技能存放目录
 
-技能默认存放于：`~/.agent/my-skills/skills/<skill-name>/SKILL.md`
+技能存放于：`~/.agent/my-skills/skills/<skill-name>/`
 
-## 工作流
+每个技能必须包含 `SKILL.md` 文件。
 
-### 1. 添加/创建新技能
+## 核心工作流
+
+### 1. 添加新技能到"我的技能"
 
 当用户要求将技能放入/添加/创建/生成/提交到"我的技能"时：
 
-**步骤 a**: 将技能移入目录
-- 将技能文件复制到 `~/.agent/my-skills/skills/<skill-name>/`
-- 技能主文件命名为 `SKILL.md`
-- 如需附加文件，可创建 `references/`、`scripts/`、`assets/` 等子目录
+**步骤：**
 
-**步骤 b**: 更新注册信息
-- 编辑 `README.md`，在技能列表中添加新技能条目
-- 编辑 `.claude-plugin/marketplace.json`，在 `skills` 数组中添加技能路径
+a. **移动/创建技能文件**
+   - 将技能移入目录 `~/.agent/my-skills/skills/`
+   - 路径格式：`~/.agent/my-skills/skills/<skill-name>/SKILL.md`
+   - 如需创建 scripts/references/assets 子目录，一并创建
 
-**步骤 c**: 提交并推送
-- 提交 git 更改
-- 推送到远程仓库
+b. **更新注册信息**
+   - 编辑 `README.md`：在技能列表中添加新技能条目
+   - 编辑 `.claude-plugin/marketplace.json`：添加技能元数据
 
-**示例**:
-```bash
-# 创建技能目录
-mkdir -p ~/.agent/my-skills/skills/my-new-skill
+   **marketplace.json 格式：**
+   ```json
+   {
+     "name": "skill-name",
+     "description": "技能描述",
+     "location": "local",
+     "author": "your-name"
+   }
+   ```
 
-# 创建 SKILL.md 文件
-cat > ~/.agent/my-skills/skills/my-new-skill/SKILL.md << 'EOF'
----
-name: my-new-skill
-description: 新技能描述
----
+c. **提交并推送**
+   ```bash
+   git add .
+   git commit -m "feat: add skill <skill-name>"
+   git push origin main
+   ```
 
-# 我的新技能
+### 2. 更新"我的技能"中的技能
 
-技能内容...
-EOF
-```
+当用户要求更新/修改"我的技能"中的技能时：
 
-### 2. 更新现有技能
+**步骤：**
 
-当用户要求更新/修改"我的技能"当中的技能时：
+a. **修改技能内容**
+   - 根据需求修改 `SKILL.md` 或捆绑资源
+   - 更新 scripts/references/assets 如有需要
 
-**步骤 a**: 修改技能内容
-- 根据用户需求修改 `SKILL.md` 或相关文件
+b. **更新注册信息**
+   - 如描述变更，同步更新 `README.md` 和 `.claude-plugin/marketplace.json`
 
-**步骤 b**: 更新注册信息
-- 如需修改名称或描述，同步更新 `README.md` 和 `marketplace.json`
+c. **提交并推送**
+   ```bash
+   git add .
+   git commit -m "update: <skill-name> - <变更描述>"
+   git push origin main
+   ```
 
-**步骤 c**: 提交并推送
-- 提交 git 更改
-- 推送到远程仓库
+### 3. 安装 Github 仓库技能
 
-### 3. 从 GitHub 安装技能
+当用户要求安装 Github 仓库技能时：
 
-当用户要求安装 GitHub 仓库技能时：
+**执行命令：**
 
-**执行命令**:
 ```bash
 npx openskills install <author>/<repo_name> --global --universal -y
 ```
 
-**同步配置**:
-```bash
-npx openskills sync -o C:/Users/jayvi/.agent/AGENTS.md
-```
+成功后同步到 AGENTS.md：
 
-**示例**:
 ```bash
-# 安装 GitHub 上的技能
-npx openskills install abevol/gh-cli --global --universal -y
-
-# 同步到 AGENTS.md
-npx openskills sync -o C:/Users/jayvi/.agent/AGENTS.md
+npx openskills sync -o C:\Users\jayvi\.agent\AGENTS.md
 ```
 
 ### 4. 安装本地技能
 
-当用户要求安装本地技能时（一般是"我的技能"当中的技能）：
+当用户要求安装本地技能（通常是"我的技能"中的技能）时：
 
-**执行命令**:
+**执行命令：**
+
 ```bash
 npx openskills install ~/.agent/my-skills/skills/<skill-name> --global --universal -y
 ```
 
-**同步配置**:
-```bash
-npx openskills sync -o C:/Users/jayvi/.agent/AGENTS.md
-```
+成功后同步到 AGENTS.md：
 
-**示例**:
 ```bash
-# 安装本地技能
-npx openskills install ~/.agent/my-skills/skills/gh-cli --global --universal -y
-
-# 同步到 AGENTS.md
-npx openskills sync -o C:/Users/jayvi/.agent/AGENTS.md
+npx openskills sync -o C:\Users\jayvi\.agent\AGENTS.md
 ```
 
 ### 5. 卸载技能
 
 当用户要求卸载技能时：
 
-**执行命令**:
+**执行命令：**
+
 ```bash
 npx openskills remove <skill-name>
 ```
 
-**同步配置**:
+成功后同步到 AGENTS.md：
+
 ```bash
-npx openskills sync -o C:/Users/jayvi/.agent/AGENTS.md
+npx openskills sync -o C:\Users\jayvi\.agent\AGENTS.md
 ```
 
-**示例**:
-```bash
-# 卸载技能
-npx openskills remove gh-cli
-
-# 同步到 AGENTS.md
-npx openskills sync -o C:/Users/jayvi/.agent/AGENTS.md
-```
-
-## 技能目录结构
+## 目录结构参考
 
 ```
-~/.agent/my-skills/
+my-skills/
+├── README.md                      # 技能列表和说明
 ├── .claude-plugin/
-│   └── marketplace.json    # 技能注册配置
-├── skills/
-│   ├── <skill-name-1>/
-│   │   ├── SKILL.md        # 技能主文件
-│   │   ├── references/     # 参考资料（可选）
-│   │   ├── scripts/        # 脚本文件（可选）
-│   │   └── assets/         # 资源文件（可选）
-│   └── <skill-name-2>/
-│       └── SKILL.md
-└── README.md               # 技能列表文档
+│   └── marketplace.json          # 技能注册信息
+└── skills/
+    ├── skill-a/
+    │   └── SKILL.md
+    ├── skill-b/
+    │   ├── SKILL.md
+    │   ├── scripts/
+    │   └── references/
+    └── my-skills-manager/        # 本技能
+        ├── SKILL.md
+        └── scripts/
 ```
-
-## SKILL.md 格式规范
-
-技能文件必须包含 YAML Front Matter：
-
-```yaml
----
-name: skill-name
-description: 技能的简短描述，说明用途和触发条件
----
-```
-
-随后是 Markdown 格式的技能内容，包括：
-- 技能概述
-- 使用场景
-- 具体工作流
-- 命令示例
-- 注意事项
-
-## marketplace.json 配置
-
-```json
-{
-  "name": "abevol-my-skills",
-  "owner": {
-    "name": "Abevol",
-    "email": "abevol@github.com"
-  },
-  "metadata": {
-    "description": "Abevol's AI Agent skills",
-    "version": "1.0.0"
-  },
-  "plugins": [
-    {
-      "name": "my-skills",
-      "description": "Collection of AI Agent skills for personal use.",
-      "source": "./",
-      "strict": false,
-      "skills": [
-        "./skills/skill-name-1",
-        "./skills/skill-name-2"
-      ]
-    }
-  ]
-}
-```
-
-## 常用命令速查
-
-| 操作 | 命令 |
-|------|------|
-| 安装 GitHub 技能 | `npx openskills install <author>/<repo> --global --universal -y` |
-| 安装本地技能 | `npx openskills install <local-path> --global --universal -y` |
-| 卸载技能 | `npx openskills remove <skill-name>` |
-| 同步配置 | `npx openskills sync -o <output-path>` |
-| 查看已安装技能 | `npx openskills list` |
 
 ## 注意事项
 
-1. **路径格式**: Windows 系统使用 `C:/Users/...` 格式，避免使用反斜杠
-2. **命名规范**: 技能名称使用小写字母和连字符，如 `my-skill-name`
-3. **描述清晰**: description 应明确说明技能用途和触发条件
-4. **及时同步**: 安装/卸载技能后务必执行 `sync` 命令更新 AGENTS.md
-5. **版本管理**: 所有技能更改应提交到 git 并推送到远程仓库
+- 技能名称使用小写字母和连字符（kebab-case）
+- SKILL.md 必须包含 YAML frontmatter（name 和 description）
+- marketplace.json 中的 location 字段对于本地技能应为 "local"
+- 提交信息应遵循约定式提交格式（feat:, update:, fix: 等）
