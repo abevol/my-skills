@@ -16,7 +16,8 @@
       "strict": false,
       "skills": [
         "./skills/gh-cli",
-        "./skills/my-skills-manager"
+        "./skills/my-skills-manager",
+        "./skills/unity-il2cpp-modding"
       ]
     }
   ]
