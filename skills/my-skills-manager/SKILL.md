@@ -91,7 +91,7 @@ npx openskills sync -o C:/Users/jayvi/.agent/AGENTS.md -y
 **执行命令：**
 
 ```bash
-npx openskills install ~/.agent/my-skills/skills/<skill-name> --global --universal -y
+npx openskills install ~/.agent/my-skills/skills/<skill-name> --global --universal --symlink -y
 ```
 
 成功后同步到 AGENTS.md：
