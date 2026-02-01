@@ -1,6 +1,6 @@
 ---
 name: gh-cli
-description: GitHub CLI (gh) 技能。用于通过命令行与 GitHub 进行无缝交互，包括仓库管理、PR/Issue 操作、代码空间管理、发布管理等。当用户需要与 GitHub 仓库、PR、Issue、Release、Codespace 等交互，或需要执行 GitHub 相关自动化任务时使用此技能。
+description: GitHub CLI (gh) 技能。用于通过命令行与 GitHub 进行无缝交互或读取内容，包括仓库管理、PR/Issue 操作、代码空间管理、发布管理、读取 GitHub 网站内容等。当用户需要与 GitHub 仓库、PR、Issue、Release、Codespace 等交互，或读取 GitHub 网站内容，或需要执行 GitHub 相关自动化任务时使用此技能。
 ---
 
 # GitHub CLI (gh) 技能
